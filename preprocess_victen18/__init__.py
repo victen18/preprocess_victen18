@@ -1,6 +1,6 @@
 from preprocess_victen18 import utils
 
-__version__ = '0.0.1'
+__version__ = '0.0.2'
 
 def get_wordcounts(x):
 	return utils._get_wordcounts(x)
@@ -59,11 +59,11 @@ def remove_stopwords(x):
 def make_base(x):
 	return utils._make_base(x)
 
-def remove_common_words(x):
-	return utils._remove_common_words(x)
+def remove_common_words(x,n=20):
+	return utils._remove_common_words(x,n)
 
-def remove_rarewords(x):
-	return utils._remove_rarewords(x)
+def remove_rarewords(x,n=20):
+	return utils._remove_rarewords(x.n)
 
 def spelling_correction(x):
 	return utils._spelling_correction(x)
