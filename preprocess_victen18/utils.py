@@ -13,6 +13,8 @@ from bs4 import BeautifulSoup
 import unicodedata
 from textblob import TextBlob
 
+nlp = spacy.load('en_core_web_sm')
+
 #Method for calculating no of words:
 def _get_wordcounts(x):
 	length = len(str(x).split())
@@ -53,7 +55,7 @@ def _get_uppercase_counts(x):
 	return len([t for t in x.split() if t.isupper()])
 
 #method for contraction words to expansion words:
-def _get_cont_exp(x):
+def _cont_exp(x):
 	contractions = { 
 	"ain't": "am not",
 	"aren't": "are not",
@@ -206,23 +208,23 @@ def _make_base(x):
 			lemma = token.text
 
 		x_list.append(lemma)
-	return ' '.join(x_list) 
+	return ' '.join(x_list)
+
+def _get_value_counts(df,col):
+	text = ' '.join(df[col])
+	text = text.split()
+	freq = pd.Series(text).value_counts()
+	return freq
 
 #remove commono words:
-def _remove_common_words(x,n=20):
-	text = x.split()
-	freq_common = pd.Series(text).value_counts()
-	fn = freq_common[:n]
-
+def _remove_common_words(x,freq,n=20):
+	fn = freq[:n]
 	x = ' '.join([t for t in x.split() if t not in fn])
 	return x
 
 #remove rare words:
-def _remove_rarewords(x,n=20):
-	text = x.split()
-	freq_common = pd.Series(text).value_counts()
+def _remove_rarewords(x,freq,n=20):
 	fn = freq_common.tail(n)
-
 	x = ' '.join([t for t in x.split() if t not in fn])
 	return x
 
