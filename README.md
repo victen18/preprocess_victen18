@@ -1,6 +1,10 @@
 #Preprocessing Text Python Package
 
-### Course Link:
-
 The python package prepared by Vikram Nimmakuri.
+
+Install
+`pip install git+ssh://git@github.com:victen18/preprocess_victen18.git`
+
+Uninstall
+`pip uninstall preprocess_victen18`
 
